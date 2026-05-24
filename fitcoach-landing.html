@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FitCoach India — Online Personal Training</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #0a0a0a;
+    --white: #f5f2ee;
+    --orange: #ff5c1a;
+    --orange-light: #ff7a42;
+    --green: #1a7a4a;
+    --cream: #faf7f2;
+    --gray: #6b6560;
+    --border: rgba(10,10,10,0.12);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--black);
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.2rem 5%;
+    background: rgba(250,247,242,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.6rem;
+    letter-spacing: 2px;
+    color: var(--black);
+  }
+  .nav-logo span { color: var(--orange); }
+  .nav-cta {
+    background: var(--orange);
+    color: white;
+    padding: 0.6rem 1.4rem;
+    border-radius: 100px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+  .nav-cta:hover { background: var(--orange-light); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 8rem 5% 4rem;
+    gap: 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -20%; right: -10%;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(255,92,26,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-tag {
+    display: inline-block;
+    background: rgba(255,92,26,0.1);
+    color: var(--orange);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 0.4rem 1rem;
+    border-radius: 100px;
+    margin-bottom: 1.5rem;
+    animation: fadeUp 0.6s ease both;
+  }
+  .hero h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(3.5rem, 6vw, 5.5rem);
+    line-height: 0.95;
+    letter-spacing: 1px;
+    margin-bottom: 1.5rem;
+    animation: fadeUp 0.6s 0.1s ease both;
+  }
+  .hero h1 em {
+    font-family: 'DM Serif Display', serif;
+    font-style: italic;
+    color: var(--orange);
+  }
+  .hero-sub {
+    font-size: 1.05rem;
+    color: var(--gray);
+    line-height: 1.7;
+    max-width: 420px;
+    margin-bottom: 2.5rem;
+    animation: fadeUp 0.6s 0.2s ease both;
+  }
+  .hero-actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    animation: fadeUp 0.6s 0.3s ease both;
+  }
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--black);
+    color: white;
+    padding: 0.9rem 2rem;
+    border-radius: 100px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(0,0,0,0.25); }
+  .btn-whatsapp {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: #25d366;
+    color: white;
+    padding: 0.9rem 2rem;
+    border-radius: 100px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-decoration: none;
+    transition: transform 0.2s;
+  }
+  .btn-whatsapp:hover { transform: translateY(-2px); }
+  .hero-stats {
+    display: flex;
+    gap: 2rem;
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+    animation: fadeUp 0.6s 0.4s ease both;
+  }
+  .stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2rem;
+    letter-spacing: 1px;
+    color: var(--orange);
+  }
+  .stat-label { font-size: 0.8rem; color: var(--gray); margin-top: 0.1rem; }
+
+  .hero-visual {
+    position: relative;
+    animation: fadeUp 0.8s 0.2s ease both;
+  }
+  .hero-card {
+    background: var(--black);
+    border-radius: 24px;
+    overflow: hidden;
+    aspect-ratio: 4/5;
+    position: relative;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.25);
+  }
+  .hero-card-bg {
+    width: 100%; height: 100%;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 40%, #0f3460 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 8rem;
+  }
+  .hero-badge {
+    position: absolute;
+    bottom: 1.5rem; left: 1.5rem; right: 1.5rem;
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 16px;
+    padding: 1.2rem 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  .badge-icon { font-size: 2rem; }
+  .badge-title { font-weight: 700; font-size: 0.95rem; }
+  .badge-sub { font-size: 0.8rem; color: var(--gray); }
+  .price-tag {
+    position: absolute;
+    top: 1.5rem; right: 1.5rem;
+    background: var(--orange);
+    color: white;
+    padding: 0.6rem 1rem;
+    border-radius: 12px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.3rem;
+    letter-spacing: 1px;
+  }
+
+  /* PAIN */
+  .pain {
+    padding: 6rem 5%;
+    background: var(--black);
+    color: var(--white);
+  }
+  .section-tag {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 1rem;
+  }
+  .pain h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.5rem, 4vw, 3.8rem);
+    letter-spacing: 1px;
+    margin-bottom: 3rem;
+    max-width: 500px;
+  }
+  .pain-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.5rem;
+  }
+  .pain-card {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 16px;
+    padding: 1.8rem;
+    transition: background 0.2s;
+  }
+  .pain-card:hover { background: rgba(255,92,26,0.1); border-color: rgba(255,92,26,0.3); }
+  .pain-icon { font-size: 1.8rem; margin-bottom: 1rem; }
+  .pain-card h3 { font-size: 1rem; font-weight: 600; margin-bottom: 0.5rem; }
+  .pain-card p { font-size: 0.88rem; color: rgba(245,242,238,0.6); line-height: 1.6; }
+
+  /* SOLUTION */
+  .solution {
+    padding: 6rem 5%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: center;
+  }
+  .solution h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.5rem, 4vw, 3.8rem);
+    letter-spacing: 1px;
+    margin-bottom: 0.5rem;
+  }
+  .solution h2 span { color: var(--orange); }
+  .solution-intro { color: var(--gray); margin-bottom: 2.5rem; line-height: 1.7; }
+  .feature-list { display: flex; flex-direction: column; gap: 1.2rem; }
+  .feature-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1.2rem;
+    background: white;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .feature-item:hover { transform: translateX(4px); box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+  .feature-check {
+    width: 32px; height: 32px;
+    background: rgba(255,92,26,0.1);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--orange);
+    font-size: 0.9rem;
+    flex-shrink: 0;
+  }
+  .feature-text h4 { font-weight: 600; font-size: 0.95rem; margin-bottom: 0.2rem; }
+  .feature-text p { font-size: 0.83rem; color: var(--gray); }
+
+  .solution-visual {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  .process-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 1.5rem;
+    display: flex;
+    gap: 1.2rem;
+    align-items: center;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+  }
+  .process-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.5rem;
+    color: var(--orange);
+    opacity: 0.3;
+    line-height: 1;
+    min-width: 3rem;
+  }
+  .process-card h4 { font-weight: 600; font-size: 0.95rem; }
+  .process-card p { font-size: 0.83rem; color: var(--gray); margin-top: 0.2rem; }
+
+  /* TESTIMONIALS */
+  .testimonials {
+    padding: 6rem 5%;
+    background: #f0ede8;
+  }
+  .testimonials h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.5rem, 4vw, 3.8rem);
+    letter-spacing: 1px;
+    margin-bottom: 3rem;
+    text-align: center;
+  }
+  .testi-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+  .testi-card {
+    background: white;
+    border-radius: 20px;
+    padding: 2rem;
+    border: 1px solid var(--border);
+    position: relative;
+  }
+  .testi-quote {
+    font-family: 'DM Serif Display', serif;
+    font-size: 3rem;
+    color: var(--orange);
+    opacity: 0.3;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+  .testi-text { font-size: 0.95rem; line-height: 1.7; color: #333; margin-bottom: 1.5rem; }
+  .testi-author { display: flex; align-items: center; gap: 0.8rem; }
+  .testi-avatar {
+    width: 42px; height: 42px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--orange), #ff9a4a);
+    display: flex; align-items: center; justify-content: center;
+    color: white; font-weight: 700; font-size: 1rem;
+  }
+  .testi-name { font-weight: 600; font-size: 0.9rem; }
+  .testi-role { font-size: 0.78rem; color: var(--gray); }
+  .testi-result {
+    position: absolute;
+    top: 1.5rem; right: 1.5rem;
+    background: rgba(26,122,74,0.1);
+    color: var(--green);
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 0.3rem 0.8rem;
+    border-radius: 100px;
+  }
+
+  /* PRICING */
+  .pricing {
+    padding: 6rem 5%;
+    text-align: center;
+  }
+  .pricing h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.5rem, 4vw, 3.8rem);
+    letter-spacing: 1px;
+    margin-bottom: 0.5rem;
+  }
+  .pricing-sub { color: var(--gray); margin-bottom: 3rem; }
+  .pricing-card {
+    max-width: 480px;
+    margin: 0 auto;
+    background: var(--black);
+    color: var(--white);
+    border-radius: 24px;
+    padding: 3rem;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.2);
+  }
+  .pricing-card::before {
+    content: '';
+    position: absolute;
+    top: -50%; left: -50%;
+    width: 200%; height: 200%;
+    background: radial-gradient(circle at 70% 30%, rgba(255,92,26,0.15) 0%, transparent 50%);
+    pointer-events: none;
+  }
+  .pricing-badge {
+    display: inline-block;
+    background: var(--orange);
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 0.4rem 1rem;
+    border-radius: 100px;
+    margin-bottom: 1.5rem;
+  }
+  .pricing-amount {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 4rem;
+    letter-spacing: 2px;
+    line-height: 1;
+    margin-bottom: 0.3rem;
+  }
+  .pricing-amount span { font-size: 1.8rem; opacity: 0.6; }
+  .pricing-period { font-size: 0.85rem; opacity: 0.5; margin-bottom: 2rem; }
+  .pricing-features {
+    list-style: none;
+    text-align: left;
+    margin-bottom: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+  }
+  .pricing-features li {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    font-size: 0.9rem;
+  }
+  .pricing-features li::before {
+    content: '✓';
+    width: 22px; height: 22px;
+    background: rgba(255,92,26,0.2);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--orange);
+    font-size: 0.7rem;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  .pricing-cta {
+    display: block;
+    background: var(--orange);
+    color: white;
+    padding: 1rem 2rem;
+    border-radius: 100px;
+    font-weight: 700;
+    font-size: 1rem;
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 6px 24px rgba(255,92,26,0.4);
+  }
+  .pricing-cta:hover { transform: translateY(-2px); box-shadow: 0 10px 32px rgba(255,92,26,0.5); }
+  .pricing-guarantee {
+    margin-top: 1.2rem;
+    font-size: 0.8rem;
+    opacity: 0.5;
+  }
+
+  /* TRUST */
+  .trust {
+    padding: 4rem 5%;
+    background: var(--black);
+    color: var(--white);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 3rem;
+    align-items: center;
+  }
+  .trust-item { text-align: center; }
+  .trust-icon { font-size: 2rem; margin-bottom: 0.5rem; }
+  .trust-label { font-size: 0.8rem; opacity: 0.6; }
+  .trust-value { font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; letter-spacing: 1px; }
+
+  /* FINAL CTA */
+  .final-cta {
+    padding: 6rem 5%;
+    text-align: center;
+    background: var(--cream);
+  }
+  .final-cta h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.8rem, 5vw, 4.5rem);
+    letter-spacing: 1px;
+    margin-bottom: 1rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .final-cta h2 em {
+    font-family: 'DM Serif Display', serif;
+    font-style: italic;
+    color: var(--orange);
+  }
+  .final-cta p { color: var(--gray); margin-bottom: 2.5rem; font-size: 1rem; }
+  .cta-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+  .urgency {
+    margin-top: 1.5rem;
+    font-size: 0.85rem;
+    color: var(--orange);
+    font-weight: 600;
+  }
+
+  /* FOOTER */
+  footer {
+    padding: 2rem 5%;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  .footer-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.3rem;
+    letter-spacing: 2px;
+  }
+  .footer-logo span { color: var(--orange); }
+  footer p { font-size: 0.8rem; color: var(--gray); }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    .hero { grid-template-columns: 1fr; padding-top: 6rem; }
+    .hero-visual { display: none; }
+    .solution { grid-template-columns: 1fr; }
+    .trust { gap: 2rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Fit<span>Coach</span> India</div>
+  <a href="#contact" class="nav-cta">Book Free Session</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-tag">🏆 India's #1 Online Personal Trainer</div>
+    <h1>Lose Weight<br>From <em>Home</em><br>No Gym.<br>No Commute.</h1>
+    <p class="hero-sub">Personal 1-on-1 coaching built around your schedule. Real results for busy working professionals — starting ₹3,000/month.</p>
+    <div class="hero-actions">
+      <a href="#contact" class="btn-primary">🎯 Book FREE First Session</a>
+      <a href="https://wa.me/919800000000" class="btn-whatsapp">💬 WhatsApp Us</a>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <div class="stat-num">500+</div>
+        <div class="stat-label">Clients Trained</div>
+      </div>
+      <div>
+        <div class="stat-num">3+</div>
+        <div class="stat-label">Years Experience</div>
+      </div>
+      <div>
+        <div class="stat-num">98%</div>
+        <div class="stat-label">Success Rate</div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="hero-card">
+      <div class="hero-card-bg">💪</div>
+      <div class="price-tag">₹3,000/mo</div>
+      <div class="hero-badge">
+        <div class="badge-icon">🔥</div>
+        <div>
+          <div class="badge-title">First Session FREE</div>
+          <div class="badge-sub">No commitment needed</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PAIN POINTS -->
+<section class="pain">
+  <div class="section-tag">Sound Familiar?</div>
+  <h2>Does This Sound Like You?</h2>
+  <div class="pain-grid">
+    <div class="pain-card">
+      <div class="pain-icon">⏰</div>
+      <h3>No Time for Gym</h3>
+      <p>Your work schedule leaves zero time for commuting to a gym and working out.</p>
+    </div>
+    <div class="pain-card">
+      <div class="pain-icon">😓</div>
+      <h3>Tried Everything</h3>
+      <p>You've tried diets, apps, YouTube videos — nothing sticks without accountability.</p>
+    </div>
+    <div class="pain-card">
+      <div class="pain-icon">📈</div>
+      <h3>Weight Keeps Creeping Up</h3>
+      <p>Desk job, stress eating, late nights — the weight just keeps adding up.</p>
+    </div>
+    <div class="pain-card">
+      <div class="pain-icon">😶</div>
+      <h3>Don't Know Where to Start</h3>
+      <p>Too much conflicting advice online. You need one expert, one plan, one result.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SOLUTION -->
+<section class="solution">
+  <div>
+    <div class="section-tag">The Fix</div>
+    <h2>Here's How We <span>Fix That</span></h2>
+    <p class="solution-intro">We build a training system around YOUR life — not the other way around. No gym membership. No rigid schedules. Just results.</p>
+    <div class="feature-list">
+      <div class="feature-item">
+        <div class="feature-check">✓</div>
+        <div class="feature-text">
+          <h4>Custom Workout Plan</h4>
+          <p>Built for your body, your goal, your home setup.</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-check">✓</div>
+        <div class="feature-text">
+          <h4>Indian Diet Plan Included</h4>
+          <p>Practical meals — dal, roti, sabzi friendly. No bland chicken salads.</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-check">✓</div>
+        <div class="feature-text">
+          <h4>Daily WhatsApp Check-ins</h4>
+          <p>Your coach keeps you accountable every single day.</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-check">✓</div>
+        <div class="feature-text">
+          <h4>Flexible Timings</h4>
+          <p>Morning, evening, weekend — we work around your calendar.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="solution-visual">
+    <div class="section-tag">How It Works</div>
+    <div class="process-card">
+      <div class="process-num">01</div>
+      <div>
+        <h4>Free Consultation Call</h4>
+        <p>We understand your goals, lifestyle and health history.</p>
+      </div>
+    </div>
+    <div class="process-card">
+      <div class="process-num">02</div>
+      <div>
+        <h4>Your Custom Plan is Ready</h4>
+        <p>Workout + diet plan crafted specifically for you within 24 hours.</p>
+      </div>
+    </div>
+    <div class="process-card">
+      <div class="process-num">03</div>
+      <div>
+        <h4>Start Training. See Results.</h4>
+        <p>Daily check-ins, weekly reviews, real transformation.</p>
+      </div>
+    </div>
+    <div class="process-card">
+      <div class="process-num">04</div>
+      <div>
+        <h4>30-Day Transformation</h4>
+        <p>Most clients see visible results within the first month.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials">
+  <div class="section-tag" style="text-align:center">Real Results</div>
+  <h2>What Our Clients Say</h2>
+  <div class="testi-grid">
+    <div class="testi-card">
+      <div class="testi-result">-8kg in 6 weeks</div>
+      <div class="testi-quote">"</div>
+      <p class="testi-text">Finally found a fitness plan that actually fits my work schedule. Lost 8kg in 6 weeks without stepping into a gym once.</p>
+      <div class="testi-author">
+        <div class="testi-avatar">R</div>
+        <div>
+          <div class="testi-name">Rahul Sharma</div>
+          <div class="testi-role">Software Engineer, Bangalore</div>
+        </div>
+      </div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-result">-6kg in 45 days</div>
+      <div class="testi-quote">"</div>
+      <p class="testi-text">The WhatsApp check-ins are a game changer. My coach keeps me on track even on my busiest work days. Best investment in my health.</p>
+      <div class="testi-author">
+        <div class="testi-avatar">P</div>
+        <div>
+          <div class="testi-name">Priya Mehta</div>
+          <div class="testi-role">Marketing Manager, Mumbai</div>
+        </div>
+      </div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-result">-10kg in 2 months</div>
+      <div class="testi-quote">"</div>
+      <p class="testi-text">The Indian diet plan is what sold me. No weird ingredients, no expensive supplements. Just practical food that actually works.</p>
+      <div class="testi-author">
+        <div class="testi-avatar">A</div>
+        <div>
+          <div class="testi-name">Amit Kulkarni</div>
+          <div class="testi-role">CA, Pune</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing">
+  <div class="section-tag">Simple Pricing</div>
+  <h2>One Plan. Everything Included.</h2>
+  <p class="pricing-sub">No hidden costs. No upsells. Just results.</p>
+  <div class="pricing-card">
+    <div class="pricing-badge">🔥 Most Popular</div>
+    <div class="pricing-amount"><span>₹</span>3,000</div>
+    <div class="pricing-period">per month · cancel anytime</div>
+    <ul class="pricing-features">
+      <li>1-on-1 Personal Training Sessions</li>
+      <li>Custom Workout Plan (updated monthly)</li>
+      <li>Indian Diet & Nutrition Plan</li>
+      <li>Daily WhatsApp Check-ins</li>
+      <li>Weekly Progress Review</li>
+      <li>Flexible Scheduling (morning/evening/weekend)</li>
+      <li>First Session Absolutely FREE</li>
+    </ul>
+    <a href="https://wa.me/919800000000" class="pricing-cta">💬 Book Your FREE First Session</a>
+    <p class="pricing-guarantee">🛡️ 30-Day Results Guarantee or Full Refund</p>
+  </div>
+</section>
+
+<!-- TRUST BAR -->
+<div class="trust">
+  <div class="trust-item">
+    <div class="trust-icon">🏆</div>
+    <div class="trust-value">Certified Trainer</div>
+    <div class="trust-label">NASM & ACE Certified</div>
+  </div>
+  <div class="trust-item">
+    <div class="trust-icon">👥</div>
+    <div class="trust-value">500+ Clients</div>
+    <div class="trust-label">Across India</div>
+  </div>
+  <div class="trust-item">
+    <div class="trust-icon">📅</div>
+    <div class="trust-value">3+ Years</div>
+    <div class="trust-label">Online Coaching</div>
+  </div>
+  <div class="trust-item">
+    <div class="trust-icon">⭐</div>
+    <div class="trust-value">4.9/5 Rating</div>
+    <div class="trust-label">Google Reviews</div>
+  </div>
+  <div class="trust-item">
+    <div class="trust-icon">🛡️</div>
+    <div class="trust-value">Money Back</div>
+    <div class="trust-label">30-Day Guarantee</div>
+  </div>
+</div>
+
+<!-- FINAL CTA -->
+<section class="final-cta" id="contact">
+  <div class="section-tag">Ready to Start?</div>
+  <h2>Your Transformation<br>Starts <em>Today</em></h2>
+  <p>Join 500+ working professionals who chose to get fit on their own terms.</p>
+  <div class="cta-buttons">
+    <a href="https://wa.me/919800000000" class="btn-whatsapp" style="font-size:1rem; padding:1rem 2.2rem;">💬 Chat on WhatsApp</a>
+    <a href="tel:+919800000000" class="btn-primary" style="font-size:1rem; padding:1rem 2.2rem;">📞 Call Now</a>
+  </div>
+  <p class="urgency">⚡ Only 5 slots available this month — Book now!</p>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Fit<span>Coach</span> India</div>
+  <p>© 2025 FitCoach India. All rights reserved.</p>
+  <p style="font-size:0.8rem; color:var(--gray);">Mumbai · Delhi · Bangalore · Pune · Hyderabad</p>
+</footer>
+
+</body>
+</html>
